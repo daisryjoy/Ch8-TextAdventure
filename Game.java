@@ -1,6 +1,6 @@
 /**
- *  This class is the main class of the "World of Zuul" application. 
- *  "World of Zuul" is a very simple, text based adventure game.  Users 
+ *  This class is the main class of the "World of Despair" application. 
+ *  "World of Despair" is a very simple, text based adventure game.  Users 
  *  can walk around some scenery. That's all. It should really be extended 
  *  to make it more interesting!
  * 
@@ -34,28 +34,90 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room outside, entrance, sideRoom, kitchen, pantry, closet, 
+        bathroom, bedroom, storageArea, backdoor, gate, office;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        outside = new Room("outside the front of the house");
+        entrance = new Room("in the entrance of the house");
+        sideRoom = new Room("in the side room");
+        kitchen = new Room("in the kitchen.");
+        pantry = new Room("in the pantry");
+        closet = new Room("in the closet");
+        bathroom = new Room("in the bathroom");
+        bedroom = new Room("in the bedroom");
+        storageArea = new Room("in the storage area...\n" 
+        +"Are you a slob? It's hecka messy in here");
+        
+        office = new Room("in the office...\n" 
+        + "Are you even productive?");
+        
+        backdoor = new Room("by the backdoor...\n" 
+        + "Are you going outside?");
+        
+        gate = new Room("outside in front of the back gate...\n" 
+        + "You're locked in. Don't die.");
         
         // initialise room exits
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        outside.setExit("northeast", entrance);
+        outside.setExit("northwest", sideRoom);
 
-        theater.setExit("west", outside);
+        entrance.setExit("north", kitchen);
+        entrance.setExit("west", sideRoom);
+        entrance.setExit("northwest", pantry);
+        entrance.setExit("south", outside);
+        
+        
+        sideRoom.setExit("south", outside);
+        sideRoom.setExit("east", entrance);
+        sideRoom.setExit("north", pantry);
+        sideRoom.setExit("northeast", kitchen);
+        
+        kitchen.setExit("northeast", closet);
+        kitchen.setExit("northwest", bathroom);
+        kitchen.setExit("south", entrance);
+        kitchen.setExit("southwest", sideRoom);
+        kitchen.setExit("west", pantry);
+        
+        pantry.setExit("northwest", bedroom);
+        pantry.setExit("northeast", bathroom);
+        pantry.setExit("south", sideRoom);
+        pantry.setExit("east", kitchen);
+        
+        closet.setExit("north", storageArea);
+        closet.setExit("west", bathroom);
+        closet.setExit("south", kitchen);
+ 
+        bathroom.setExit("east", closet);
+        bathroom.setExit("southeast", kitchen);
+        bathroom.setExit("southwest", pantry);
+        bathroom.setExit("west", bedroom);
+        bathroom.setExit("northeast", storageArea);
+        bathroom.setExit("northwest", office);
+        
+        bedroom.setExit("northwest", backdoor);
+        bedroom.setExit("northeast", office);
+        bedroom.setExit("east", bathroom);
+        bedroom.setExit("south", pantry);
+  
+        storageArea.setExit("southeast", closet);
+        storageArea.setExit("southwest", bathroom);
+        storageArea.setExit("west", office);
+        storageArea.setExit("north", gate);
 
-        pub.setExit("east", outside);
-
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
-
-        office.setExit("west", lab);
+        office.setExit("east", storageArea);
+        office.setExit("southeast", bathroom);
+        office.setExit("southwest", bedroom);
+        office.setExit("west", backdoor);
+        office.setExit("north", gate);
+        
+        backdoor.setExit("east", office);
+        backdoor.setExit("south", bedroom);
+        backdoor.setExit("north", gate);
+        
+        gate.setExit("south", office);
+        backdoor.setExit("southeast", storageArea);
+        backdoor.setExit("southWest", backdoor);
 
         currentRoom = outside;  // start game outside
     }
@@ -84,8 +146,9 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+        System.out.println("Welcome to Le Désespoir!");
+        System.out.println("Le Désespoir! is an adventure game " +
+        "in which you test your abilities during a panic of despair");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
