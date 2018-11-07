@@ -138,6 +138,13 @@ public class Game
         parser.showCommands();
     }
 
+    /**
+     * Describes current room status. 
+     */
+    private void look(){
+        System.out.println(currentRoom.getLongDescription());
+    }
+    
     /** 
      * Try to go in one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
