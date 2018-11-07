@@ -185,7 +185,10 @@ public class Game
             case LOOK: 
                 look(); 
                 break;
-                    
+                
+            case EAT: 
+                System.out.println("You gained energy! JUST KIDDING. You're always tired.");
+                break;
         }
         return wantToQuit;
     }
@@ -212,6 +215,7 @@ public class Game
     private void look(){
         System.out.println(currentRoom.getLongDescription());
     }
+    
     
     /** 
      * Try to go in one direction. If there is an exit, enter the new
