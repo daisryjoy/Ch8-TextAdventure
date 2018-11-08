@@ -1,8 +1,7 @@
 /**
- *  This class is the main class of the "World of Despair" application. 
- *  "World of Despair" is a very simple, text based adventure game.  Users 
- *  can walk around some scenery. That's all. It should really be extended 
- *  to make it more interesting!
+ *  This class is the main class of the "Le Désespoir!" application. 
+ *  "Le Désespoir!" is a very simple, text based adventure game.  Users 
+ *  can walk around and participate in the game.
  * 
  *  To play this game, create an instance of this class and call the "play"
  *  method.
@@ -12,7 +11,7 @@
  *  executes the commands that the parser returns.
  * 
  * @author  Daisry Joy Ladignon 
- * @version 2018.10.31
+ * @version 2018.10.27
  */
 
 public class Game 
@@ -118,7 +117,9 @@ public class Game
         gate.setExit("south", office);
         backdoor.setExit("southeast", storageArea);
         backdoor.setExit("southWest", backdoor);
-
+        
+        
+        
         currentRoom = outside;  // start game outside
     }
 

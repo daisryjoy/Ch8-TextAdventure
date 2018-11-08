@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Item
+comment0.text=\n\ Item\ class\ to\ manage\ items\ found\ in\ rooms.\n\n\ @Daisry\ Joy\ Ladignon\n\ @2018.10.27\n
+comment1.params=name\ description\ weight\ canTake
+comment1.target=Item(java.lang.String,\ java.lang.String,\ int,\ boolean)
+comment2.params=
+comment2.target=java.lang.String\ getName()
+comment2.text=\n\ Get\ item's\ name.\n
+comment3.params=
+comment3.target=java.lang.String\ getDescription()
+comment3.text=\n\ Get\ item's\ description.\n
+comment4.params=
+comment4.target=int\ getWeight()
+comment4.text=\n\ Get\ item's\ weight.\n
+comment5.params=
+comment5.target=boolean\ getCanTake()
+comment5.text=\n\ Allow\ player\ to\ take\ item.\ \n
+numComments=6
