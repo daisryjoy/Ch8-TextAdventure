@@ -12,7 +12,7 @@ public enum CommandWord
     //added LOOK.
     GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), LOOK("look"),
     EAT("eat"), BACK("back"),
-    TAKE("take"), DROP("drop"), ITEMS("items"), MAGICCOOKIE ("eat cookie");
+    TAKE("take"), DROP("drop"), ITEMS("items"), COOKIE ("eat cookie");
     
     // The command string.
     private String commandString;

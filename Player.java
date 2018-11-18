@@ -57,21 +57,21 @@ public String getName(){
      * Drops item from inventory and removes weight of object from maxWeight. 
      */
     public void addItem(Item addedItem)
-    {   if(maxWeight < 3500){
-        maxWeight += addedItem.getWeight(); 
+    {   if(weight < maxWeight){
+        weight += addedItem.getWeight(); 
         inventory.add(addedItem);
-        } else if (maxWeight >= 3500)
+        } else if (weight >= 3500)
         {System.out.println("You can not carry this item " +
         "because you're too weak and can only handle too much.");
     }else {System.out.println("There is no item.");}
 }
  
     /**
-     * Drops item from inventory and removes weight of object from maxWeight. 
+     * Drops item from inventory and removes weight of object from weight. 
      */
     public void removeItem(Item removedItem)
     {   
-        maxWeight -= removedItem.getWeight(); 
+        weight -= removedItem.getWeight(); 
         inventory.remove(removedItem);
     }
     
@@ -97,16 +97,23 @@ public String getName(){
         for(Item item: inventory){
             System.out.println(item.getName());
         }
-        System.out.println("Total Weight: "+  maxWeight); 
+        System.out.println("Total Weight: "+  weight); 
     }
     /**
      * Eat the cookie 
      */
     public void eatCookie()
-    {   if ((maxWeight + weight 
+    {   if (weight < 2000)
+        {
+            System.out.println("You have eaten a Magic Cookie!" +
+            "By eating this cookie, " + "you added 1500 to your max invetory weight!" );
+            maxWeight += 1500;
+        } else {
+            System.out.println("You can not eat the Magic Cookie. Lose some weight first.");
         }
         
     }
+}
      
 
 
