@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=GameMain
+comment0.text=\n\ GameMain\ Class\ to\ create\ and\ execute\ Game\ object.\n\n\ @author\ Daisry\ Joy\ Ladignon\n\ @version\ 2018.10.31\n
+comment1.params=
+comment1.target=GameMain()
+comment1.text=\n\ Allows\ you\ to\ play\ the\ game,\ and\ only\ that\n
+numComments=2

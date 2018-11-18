@@ -1,6 +1,8 @@
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.*; 
+ 
 
 /**
  * Class Room - a room in an adventure game.
@@ -20,7 +22,8 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
-
+    private ArrayList<Item> itemsInRoom; 
+    
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
@@ -31,6 +34,7 @@ public class Room
     {
         this.description = description;
         exits = new HashMap<String, Room>();
+        itemsInRoom = new ArrayList<Item>();
     }
 
     /**
@@ -61,7 +65,10 @@ public class Room
     public String getLongDescription()
     {
         return "You are " + description + ".\n" + getExitString();
+        
     }
+    
+  
 
     /**
      * Return a string describing the room's exits, for example
@@ -87,6 +94,41 @@ public class Room
     public Room getExit(String direction) 
     {
         return exits.get(direction);
+    }
+    
+      /**
+     * Returns the item in the room which is found using it's name
+     * @item the item
+     */
+       public Item getItem(String itemName)
+   { 
+         Item returnItem = null; 
+         
+         for(Item item : itemsInRoom){
+            if(itemName.equals(item.getName())){
+                returnItem = item; 
+            }
+            
+      }
+            return returnItem;
+    }
+    
+   /**
+    * Item can be removed from room. 
+    * @param item to be removed from the room
+    */
+    public void removeItem(Item item)
+   {
+      itemsInRoom.remove(item);
+   }
+   
+   /**
+    * Adds an item to a room.
+    * 
+    */
+    public void addItem(Item item)
+    {
+        itemsInRoom.add(item); 
     }
     
     

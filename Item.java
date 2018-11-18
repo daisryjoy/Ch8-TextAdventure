@@ -12,12 +12,14 @@ public class Item
 
    private boolean canTake;
 
-   public Item(String name, String description, int weight, boolean canTake)
+   /**
+    * Constructor for objects of Item class. 
+    */
+   public Item(String name, String description, int weight)
    {
       this.name = name;
       this.description = description;
       this.weight = weight;
-      this.canTake = canTake;
 
    }
 
@@ -30,11 +32,15 @@ public class Item
    }
 
    /**
-    * Get item's description.
+    * Gives a description of the items in the room.
+    * @return A description of the item with weight. 
     */
    public String getDescription()
    {
-      return description;
+      String itemDescrip = "This room contains: " ; 
+      itemDescrip = itemDescrip + this.description 
+      + " \n Item's weight: " + this.weight;
+      return itemDescrip;
    }
 
    /**
@@ -45,11 +51,5 @@ public class Item
       return weight;
    }
    
-   /**
-    * Allow player to take item. 
-    */
-   public boolean getCanTake()
-   {
-      return canTake;
-   }
+  
 }

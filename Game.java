@@ -1,3 +1,6 @@
+import java.util.Random;
+import java.util.Stack;
+import java.util.Scanner;
 /**
  *  This class is the main class of the "Le Désespoir!" application. 
  *  "Le Désespoir!" is a very simple, text based adventure game.  Users 
@@ -18,7 +21,11 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-        
+    Random rand = new Random();
+    private Room prevRoom;
+    private Stack roomStack = new Stack();
+    private Player player; 
+    
     /**
      * Create the game and initialise its internal map.
      */
@@ -37,25 +44,60 @@ public class Game
         bathroom, bedroom, storageArea, backdoor, gate, office;
       
         // create the rooms
-        outside = new Room("outside the front of the house");
-        entrance = new Room("in the entrance of the house");
-        sideRoom = new Room("in the side room");
-        kitchen = new Room("in the kitchen.");
-        pantry = new Room("in the pantry");
-        closet = new Room("in the closet");
-        bathroom = new Room("in the bathroom");
-        bedroom = new Room("in the bedroom");
+        outside = new Room("outside the front of the house. There is a shovel on the ground.");
+        entrance = new Room("in the entrance of the house. " +
+        "There's a candlestick resting on the table in front of you.");
+        sideRoom = new Room("in the side room. There is a rack.");
+        kitchen = new Room("in the kitchen. There's a knife. ");
+        pantry = new Room("in the pantry. There's a box of pasta.");
+        closet = new Room("in the closet. There's a hanger. ");
+        bathroom = new Room("in the bathroom. There is a toothbrush. ");
+        bedroom = new Room("in the bedroom. There is a chair. ");
         storageArea = new Room("in the storage area...\n" 
-        +"Are you a slob? It's hecka messy in here");
+        +"Are you a slob? It's hecka messy in here. "+
+        "There's an item in front of you, but it's a mystery item.");
         
         office = new Room("in the office...\n" 
-        + "Are you even productive?");
+        + "Are you even productive? There is a pen.");
         
         backdoor = new Room("by the backdoor...\n" 
-        + "Are you going outside?");
+        + "Are you going outside? There is a flashlight.");
         
         gate = new Room("outside in front of the back gate...\n" 
-        + "You're locked in. Don't die.");
+        + "You're locked in. Don't die. There is a rope on the gate.");
+        
+        
+        //initialise items 
+        Item shovel = new Item("shovel", "It's a muddy shovel", 700); //item outside
+        Item candlestick = new Item("candlestick", "It's a candlestick", 300); //item in entrance
+        Item rack = new Item("rack", "It's a rack", 2000); //item in sideRoom
+        Item knife = new Item("knife", "It's a knife", 500); //item in kitchen
+        Item pasta = new Item("pasta", "It's some uncook elbow pasta", 100); //item in pantry 
+        Item hanger = new Item("hanger", "It's a coat hanger", 200); //item in closet
+        Item toothbrush = new Item("toothbrush", "It's a toothbrush", 200); //item in bathroom
+        Item chair = new Item("chair", "It's a chair", 700); //item in bedroom
+        Item mysteryThing = new Item("unknown item", "What is it?",+
+        rand.nextInt((5000-1) +1 + 1)); //item in storageArea
+        Item pen = new Item("pen", "It's a pen", 200); //item in office
+        Item flashlight = new Item("flashlight", "It's a flashlight", 600); //item by backdoor
+        Item rope = new Item("rope", "It's a rope", 500); //item by gate
+        
+        
+        
+        //add items to the rooms
+        outside.addItem(shovel); 
+        entrance.addItem(candlestick); 
+        sideRoom.addItem(rack); 
+        kitchen.addItem(knife); 
+        pantry.addItem(pasta); 
+        closet.addItem(hanger); 
+        bathroom.addItem(toothbrush); 
+        bedroom.addItem(chair); 
+        storageArea.addItem(mysteryThing); 
+        office.addItem(pen); 
+        backdoor.addItem(flashlight); 
+        gate.addItem(rope); 
+        
         
         // initialise room exits
         outside.setExit("northeast", entrance);
@@ -121,6 +163,7 @@ public class Game
         
         
         currentRoom = outside;  // start game outside
+        prevRoom = null; 
     }
 
     /**
@@ -128,6 +171,12 @@ public class Game
      */
     public void play() 
     {            
+        String name; // player name 
+        System.out.println("Enter player's name: "); 
+        Scanner sc = new Scanner(System.in);
+        name = sc.nextLine(); 
+        player = new Player(name, currentRoom); 
+        
         printWelcome();
 
         // Enter the main command loop.  Here we repeatedly read commands and
@@ -190,6 +239,22 @@ public class Game
             case EAT: 
                 System.out.println("You gained energy! JUST KIDDING. You're always tired.");
                 break;
+                
+            case BACK:
+                back(); 
+                break;
+                
+            case TAKE:
+                take(command);
+                break; 
+                
+            case DROP: 
+                drop(command);
+                break; 
+                
+            case ITEMS:
+                player.printItems();
+                break;
         }
         return wantToQuit;
     }
@@ -221,6 +286,7 @@ public class Game
     /** 
      * Try to go in one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
+     * @param command The command to be processed.
      */
     private void goRoom(Command command) 
     {
@@ -239,6 +305,8 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            prevRoom = currentRoom;
+            roomStack.push (prevRoom); 
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
         }
@@ -258,5 +326,52 @@ public class Game
         else {
             return true;  // signal that we want to quit
         }
+    }
+    
+    /**
+     * Returns player to the previous room. 
+     */
+    private void back(){
+        if(roomStack.empty()){
+        currentRoom = prevRoom; 
+        System.out.println(currentRoom.getLongDescription());
+    } else {
+         currentRoom = (Room) roomStack.pop();
+         System.out.println(currentRoom.getLongDescription());
+    }
+    }
+    
+    /**
+     * Take command
+     */
+    private void take(Command command){
+        if(!command.hasSecondWord()){
+            //if there is no second word, we don't know what to take
+            System.out.println("What do you want to take?");
+            return;
+        }
+        String itemName = command.getSecondWord(); 
+        System.out.println("You have added " +  itemName + " to your inventory.");
+        Item newItem; 
+        newItem = currentRoom.getItem(itemName); 
+        currentRoom.removeItem(newItem);
+        player.addItem(newItem); 
+    }
+    
+    /**
+     * Drop command
+     */
+     private void drop(Command command){
+        if(!command.hasSecondWord()){
+            //if there is no second word, we don't know what to take
+            System.out.println("What do you want to drop?");
+            return;
+        }
+        String itemName = command.getSecondWord(); 
+        System.out.println("You have dropped " +  itemName + " from your inventory.");
+        Item newItem; 
+        newItem = currentRoom.getItem(itemName); 
+        currentRoom.addItem(newItem);
+        player.addItem(newItem);
     }
 }
