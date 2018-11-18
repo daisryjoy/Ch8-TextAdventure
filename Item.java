@@ -10,7 +10,6 @@ public class Item
    private String name, description;
    private int weight;
 
-   private boolean canTake;
 
    /**
     * Constructor for objects of Item class. 
@@ -20,7 +19,7 @@ public class Item
       this.name = name;
       this.description = description;
       this.weight = weight;
-
+      
    }
 
    /**

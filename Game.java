@@ -49,7 +49,8 @@ public class Game
         "There's a candlestick resting on the table in front of you.");
         sideRoom = new Room("in the side room. There is a rack.");
         kitchen = new Room("in the kitchen. There's a knife. ");
-        pantry = new Room("in the pantry. There's a box of pasta.");
+        pantry = new Room("in the pantry. There's a box of pasta. There is also a magic cookie." +
+        "If you eat the cookie you will be able to carry more weight.");
         closet = new Room("in the closet. There's a hanger. ");
         bathroom = new Room("in the bathroom. There is a toothbrush. ");
         bedroom = new Room("in the bedroom. There is a chair. ");
@@ -81,7 +82,8 @@ public class Game
         Item pen = new Item("pen", "It's a pen", 200); //item in office
         Item flashlight = new Item("flashlight", "It's a flashlight", 600); //item by backdoor
         Item rope = new Item("rope", "It's a rope", 500); //item by gate
-        
+        Item magicCookie = new Item("cookie", "It's a magic cookie. By eating this cookie, "
+        + "you will add 1500 to your max invetory weight! ", 0); // item hidden in pantry
         
         
         //add items to the rooms
@@ -255,6 +257,11 @@ public class Game
             case ITEMS:
                 player.printItems();
                 break;
+                
+            case MAGICCOOKIE:
+                player.eatCookie(); 
+                    break; 
+                    
         }
         return wantToQuit;
     }

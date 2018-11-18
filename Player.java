@@ -14,7 +14,7 @@ public class Player
     private ArrayList<Item> inventory;  
     private Room currentRoom;
     //private Item item; 
-    private int maxWeight = 0; 
+    private int maxWeight = 3500; 
     private int weight; 
     /**
      * Constructor for objects of class Player
@@ -54,41 +54,7 @@ public String getName(){
     }
     
     /**
-     * Player can take an item and adds item to inventory
-     * 
-     */ 
-    /*
-    public void take(String itemName){
-        Item itemTake = currentRoom.getItem(itemName); 
-        if((maxWeight + itemTake.getWeight())< 3500){  
-        currentRoom.removeItem(itemTake); 
-        inventory.add(itemTake);
-        maxWeight += itemTake.getWeight(); 
-        System.out.println("Item taken:" + itemTake.getName()); 
-        
-    }else if ((maxWeight + itemTake.getWeight()) >= 3500){
-        System.out.println("You can not carry this item " +
-        "because you're too weak and can only handle too much.");
-    }else{
-        System.out.println("There is no item.");
-    }}
-  
- 
-     //Player can drop item and removes item from inventory.
-    
-    public void drop(String itemName){
-        Item itemDrop = getItem(itemName); 
-        if(inventory.isEmpty()){
-        System.out.println("There are no items in your inventory");
-    } else {
-        System.out.println("You dropped the item:" + itemDrop.getName());
-        inventory.remove(itemDrop);
-        maxWeight -= itemDrop.getWeight(); 
-    }
-}
-*/ 
-    /**
-     * Adds item into inventory and adds weight of object into maxWeight. 
+     * Drops item from inventory and removes weight of object from maxWeight. 
      */
     public void addItem(Item addedItem)
     {   if(maxWeight < 3500){
@@ -133,6 +99,13 @@ public String getName(){
         }
         System.out.println("Total Weight: "+  maxWeight); 
     }
+    /**
+     * Eat the cookie 
+     */
+    public void eatCookie()
+    {   if ((maxWeight + weight 
+        }
+        
     }
      
 
