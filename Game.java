@@ -42,7 +42,7 @@ public class Game
     {
         Room outside, entrance, sideRoom, kitchen, pantry, closet, 
         bathroom, bedroom, storageArea, backdoor, gate, office;
-      
+        
         // create the rooms
         outside = new Room("outside the front of the house. There is a shovel on the ground.");
         entrance = new Room("in the entrance of the house. " +
@@ -81,7 +81,7 @@ public class Game
         rand.nextInt((5000-1) +1 + 1)); //item in storageArea
         Item pen = new Item("pen", "It's a pen", 200); //item in office
         Item flashlight = new Item("flashlight", "It's a flashlight", 600); //item by backdoor
-        Item rope = new Item("rope", "It's a rope", 500); //item by gate
+        Item rope = new Item("rope", "It's a rope", 600); //item by gate
         Item magicCookie = new Item("cookie", "It's a magic cookie. By eating this cookie, "
         + "you will add 1500 to your max invetory weight! ", 5); // item hidden in pantry
         
@@ -261,8 +261,11 @@ public class Game
                 
             case COOKIE:
                 player.eatCookie(); 
-                    break; 
-                    
+                break; 
+                
+            case HEALTH:
+                player.getHealth(); 
+                break;           
         }
         return wantToQuit;
     }
@@ -357,14 +360,18 @@ public class Game
             //if there is no second word, we don't know what to take
             System.out.println("What do you want to take?");
             return;
-        }
+        } 
         String itemName = command.getSecondWord(); 
+        if(itemName == "cookie"){
+            player.eatCookie(); 
+        } else{
         System.out.println("You have added " +  itemName + " to your inventory.");
         Item newItem; 
         newItem = currentRoom.getItem(itemName); 
         currentRoom.removeItem(newItem);
         player.addItem(newItem); 
     }
+}
     
     /**
      * Drop command

@@ -36,6 +36,14 @@ public String getName(){
 }
 
 /**
+ * Return player health. 
+ */
+public void getHealth(){
+    System.out.println("Health: " + health);
+    //return health;
+}
+
+/**
      * Method to set the player's current room
      * 
      * @param Room currentRoom of player
@@ -54,16 +62,33 @@ public String getName(){
     }
     
     /**
-     * Drops item from inventory and removes weight of object from maxWeight. 
+     * Adds item to inventory and adds weight of object to weight. 
      */
     public void addItem(Item addedItem)
     {   if(weight < maxWeight){
+        
+        if(addedItem.getWeight() == 500){ // compare weight to weight of knife
+        System.out.println("Bloody hell! You stabbed yourself.");
+        weight += addedItem.getWeight(); 
+        inventory.add(addedItem); 
+        health -= 3; 
+        } else if(addedItem.getWeight() == 300) // weight of candlestick
+        {
+        System.out.println("Bloody hell! You burned yourself.");
+        weight += addedItem.getWeight(); 
+        inventory.add(addedItem); 
+        health -= 1; 
+        }
+        else{
         weight += addedItem.getWeight(); 
         inventory.add(addedItem);
-        } else if (weight >= 3500)
-        {System.out.println("You can not carry this item " +
+        }
+        }else if (weight >= 3500)
+        {
+        System.out.println("You can not carry this item " +
         "because you're too weak and can only handle too much.");
-    }else {System.out.println("There is no item.");}
+    
+        }else {System.out.println("There is no item.");}
 }
  
     /**
@@ -105,9 +130,11 @@ public String getName(){
     public void eatCookie()
     {   if (weight < 2000)
         {
-            System.out.println("You have eaten a Magic Cookie!" +
-            "By eating this cookie, " + "you added 1500 to your max invetory weight!" );
+            System.out.println("You have eaten a Magic Cookie! " +
+            "By eating this cookie, " + "you added 1500 to your max inventory weight! "+
+        "And have gained + 2 to your health.");
             maxWeight += 1500;
+            health += 2; 
         } else {
             System.out.println("You can not eat the Magic Cookie. Lose some weight first.");
         }
