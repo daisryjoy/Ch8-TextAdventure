@@ -203,6 +203,7 @@ public class Game
         System.out.println("Le Désespoir! is an adventure game " +
         "in which you test your abilities during a panic of despair");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
+        System.out.println("You can call Darren or Aaron for clues and hints about the rooms."); 
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
     }
@@ -265,7 +266,17 @@ public class Game
                 
             case HEALTH:
                 player.getHealth(); 
-                break;           
+                break;  
+            
+            case DARREN:
+                System.out.println("Where danger lies is where you fail countless times. AKA You can't cook");
+                break; 
+                
+            case AARON:
+                System.out.println("Where you always flock first you must walk. " + 
+                "The place that you go is where you always grow (horizontally) " + "These treasures are your secret pleasures.");
+                break; 
+          
         }
         return wantToQuit;
     }
